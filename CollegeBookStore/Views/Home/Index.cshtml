@@ -1,0 +1,28 @@
+﻿@*  *@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">College Book Store</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <tbody>
+                @for (int i = 0; i < 3; i++)
+                {
+                    <tr>
+                        @for (int j = 0; j < 3; j++)
+                        {
+                            <td> Add Popular Books As buttons Here</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

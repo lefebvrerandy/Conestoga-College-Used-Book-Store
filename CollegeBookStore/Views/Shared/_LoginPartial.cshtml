@@ -1,0 +1,57 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a class="btn btn-link navbar-btn navbar-link" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        </li>
+    </ul>
+
+    if (User.IsInRole("Admin"))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Manage
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-controller="Administration"
+                   asp-action="ListUsers">Users</a>
+                <a class="dropdown-item" asp-controller="Administration"
+                   asp-action="ListRoles">Roles</a>
+            </div>
+        </li>
+    }
+
+    <div class="navbar-collapse collapse navbar-right">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-route-id="">Profile</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="Index">Cart</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action="Index">Update Account</a>
+                <a class="dropdown-item" asp-controller="Search" asp-action="Index">Add Book</a>
+                <div class="dropdown-divider"></div>
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+                    <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
+                </form>
+            </div>
+        </li>
+    </div>
+
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+        <li><a>&nbsp;</a></li>
+        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+    </ul>
+}@*asp-area="Identity" asp-page="/Account/Register"*@
